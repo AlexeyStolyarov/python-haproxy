@@ -41,8 +41,11 @@ class HAProxyStats(object):
 
 			for s in r:
 				if (s is client):
-					buffer = buffer + client.recv(16384)
-					running = (len(buffer)==0)
+					tmp = client.recv(16384)
+					buffer = buffer + tmp
+					if tmp == '':
+						running = (len(buffer)==0)
+
 
 		client.close()
 
